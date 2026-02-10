@@ -25,62 +25,62 @@ export default function Home() {
                         enableMouseInteraction
                     />
                 </div>
+                <div className="!-mt-28">
+                    <div
+                        className="relative z-10 max-w-[1200px] mx-auto 
+    flex flex-col xl:flex-row 
+    justify-between items-center p-4"
+                    >
+                        {/* TEXT SECTION */}
+                        <div className="text-center xl:text-left order-2 xl:order-1">
+                            <h1 className="text-[22px] xs:text-[25px] sm:text-[30px] font-bold mb-4">
+                                Mashhurbek Ergashev
+                            </h1>
 
-                {/* Content */}
-                <div className="relative z-10 max-w-[1200px] mx-auto 
-                        flex flex-col xl:flex-row 
-                        justify-between items-center p-4">
+                            <h2 className="text-3xl xs:text-4xl sm:text-5xl font-bold mb-4">
+                                Frontend Development
+                            </h2>
 
-                    {/* TEXT SECTION */}
-                    <div className="text-center xl:text-left order-2 xl:order-1">
-                        <h1 className="text-[22px] xs:text-[25px] sm:text-[30px] font-bold mb-4">
-                            Mashhurbek Ergashev
-                        </h1>
+                            <Button />
 
-                        <h2 className="text-3xl xs:text-4xl sm:text-5xl font-bold mb-4">
-                            Frontend Development
-                        </h2>
+                            <div className="flex flex-wrap gap-4 mt-3 justify-center xl:justify-start">
+                                <StyledButton>
+                                    <div className="flex gap-4 items-center">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="w-[20px]"
+                                            viewBox="0 0 640 640"
+                                        >
+                                            <path
+                                                fill="#0546b8"
+                                                d="M176.1 65.4C195.8 60 216.4 70.1 224.2 88.9L264.7 186.2C271.6 202.7 266.8 221.8 252.9 233.2L208.8 269.3C241.3 340.9 297.8 399.3 368.1 434.2L406.7 387C418 373.1 437.1 368.4 453.7 375.2L551 415.8C569.8 423.6 579.9 444.2 574.5 463.9C555.4 534.1 492.9 589.3 416.6 573.2C241.6 536.1 103.9 398.4 66.8 223.4C50.7 147.1 105.9 84.6 170.5 66.9L176.1 65.4z"
+                                            />
+                                        </svg>
+                                        <span>97 380 42 88</span>
+                                    </div>
+                                </StyledButton>
+                            </div>
+                        </div>
 
-                        <Button />
-
-                        <div className="flex flex-wrap gap-4 mt-3 justify-center xl:justify-start">
-                            <StyledButton>
-                                <div className="flex gap-4 items-center">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="w-[20px]"
-                                        viewBox="0 0 640 640"
-                                    >
-                                        <path
-                                            fill="#0546b8"
-                                            d="M176.1 65.4C195.8 60 216.4 70.1 224.2 88.9L264.7 186.2C271.6 202.7 266.8 221.8 252.9 233.2L208.8 269.3C241.3 340.9 297.8 399.3 368.1 434.2L406.7 387C418 373.1 437.1 368.4 453.7 375.2L551 415.8C569.8 423.6 579.9 444.2 574.5 463.9C555.4 534.1 492.9 589.3 416.6 573.2C241.6 536.1 103.9 398.4 66.8 223.4C50.7 147.1 105.9 84.6 170.5 66.9L176.1 65.4z"
-                                        />
-                                    </svg>
-                                    <span>97 380 42 88</span>
-                                </div>
-                            </StyledButton>
+                        {/* IMAGE SECTION */}
+                        <div
+                            className="order-1 xl:order-2
+      mt-6 xl:mt-0
+      flex justify-center items-center
+      w-[200px] xs:w-[250px] sm:w-[350px]
+      h-[200px] xs:h-[250px] sm:h-[350px]
+      rounded-full border-2 border-blue-600 p-3
+      shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                        >
+                            <img
+                                src={img2}
+                                alt="profile"
+                                className="w-full h-full object-cover rounded-full"
+                            />
                         </div>
                     </div>
-
-                    {/* IMAGE SECTION */}
-                    <div
-                        className="order-1 xl:order-2
-    mt-6 xl:mt-0
-    md: -mt-32
-    flex justify-center items-center
-    w-[200px] xs:w-[250px] sm:w-[350px]
-    h-[200px] xs:h-[250px] sm:h-[350px]
-    rounded-full border-2 border-blue-600 p-3
-    shadow-[0_0_30px_rgba(59,130,246,0.5)]"
-                    >
-
-                        <img
-                            src={img2}
-                            alt="profile"
-                            className="w-full h-full object-cover rounded-full"
-                        />
-                    </div>
                 </div>
+                {/* Content */}
             </section>
 
             {/* ================= PORTFOLIO ================= */}
