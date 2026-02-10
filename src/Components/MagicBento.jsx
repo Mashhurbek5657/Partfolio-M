@@ -6,53 +6,54 @@ const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '132, 0, 255';
 const MOBILE_BREAKPOINT = 768;
 
+import img3 from '../../public/Annotation 2026-02-08 082839.png';
+import img4 from '../../public/Annotation 2026-02-08 084939.png';
+import img5 from '../../public/Annotation 2026-02-07 195614.png';
+import img6 from '../../public/Annotation 2026-02-08 083249.png';
+import img7 from '../../public/Annotation 2026-02-08 090108.png';
+import img8 from '../../public/Annotation 2026-02-08 090303.png';
+
 const cardData = [
   {
     color: '#060010',
-    title: 'Analytics',
-    img: '../../public/Annotation 2026-02-08 082839.png',
-    description: 'Track user behavior',
-    label: 'Insights',
+    title: 'StreamVibe',
+    img: img3,
+    label: 'Mashhurbek',
     link: 'https://stream-vibe-uz.vercel.app/'
   },
   {
     color: '#060010',
-    title: 'Dashboard',
-    img: '../../public/Annotation 2026-02-08 084939.png',
-    description: 'Centralized data view',
-    label: 'Overview',
+    title: 'Teo_Mashhur',
+    img: img4,
+    label: 'Mashhurbek',
     link: 'https://m-marketting.vercel.app/'
   },
   {
     color: '#060010',
-    title: 'Collaboration',
-    img: '../../public/Annotation 2026-02-07 195614.png',
-    description: 'Work together seamlessly',
-    label: 'Teamwork',
+    title: 'EliteDrivex',
+    img: img5,
+    label: 'Mashhurbek',
     link: 'https://drivex-car.vercel.app/'
   },
   {
     color: '#060010',
-    title: 'Automation',
-    img: '../../public/Annotation 2026-02-08 083249.png',
-    description: 'Streamline workflows',
-    label: 'Efficiency',
+    title: 'Hekto',
+    img: img6,
+    label: 'Mashhurbek',
     link: 'https://katta-market.vercel.app/'
   },
   {
     color: '#060010',
-    title: 'Integration',
-    img: '../../public/Annotation 2026-02-08 090108.png',
-    description: 'Connect favorite tools',
-    label: 'Connectivity',
+    title: 'Tokopedia',
+    img: img7,
+    label: 'Mashhurbek',
     link: 'https://mashhurbek-fayl-kh8j.vercel.app/'
   },
   {
     color: '#060010',
-    title: 'Security',
-    img: '../../public/Annotation 2026-02-08 090303.png',
-    description: 'Enterprise-grade protection',
-    label: 'Protection',
+    title: 'Mlinckiy',
+    img: img8,
+    label: 'Mashhurbek',
     link: 'https://m-mahsulotlar.vercel.app/'
   }
 ];
@@ -684,8 +685,8 @@ const MagicBento = ({
                         backgroundPosition: 'center',
                       }}
                     >
-                      {/* overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-purple-900/40 to-black/70"><img src={card.img} alt="" /></div>
+                      {/* gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-purple-900/40 to-black/70"></div>
 
                       {/* content */}
                       <div className="relative z-10 p-6 text-white h-full flex flex-col justify-between">
