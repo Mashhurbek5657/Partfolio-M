@@ -38,6 +38,12 @@ const StyledWrapper = styled.div`
     font-family: "Poppins", sans-serif;
   }
 
+  @media (max-width: 1199px) {
+    .wrapper {
+      justify-content: center;
+    }
+  }
+
   .wrapper .icon {
     position: relative;
     background: #1f1f2e; /* qora fon bilan mos, biroz ochroq */

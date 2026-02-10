@@ -32,9 +32,11 @@ export default function May() {
 
       {/* Content */}
       <div className="relative z-10 p-4 xs:p-6 text-white h-full flex flex-col justify-between">
-        <span className="flex gap-1 mb-12 xs:mb-[60px] font-semibold text-[20px] xs:text-[1px]">
+        <span className="mb-12 xs:mb-[60px] font-semibold 
+                 text-[20px] xs:text-[16px]
+                 xl:flex xl:gap-1">
           Salom, siz bilan
-          <div className="text-blue-600">Mashhurbek Ergashev</div>👋
+          <div className="text-blue-600">Mashhurbek Ergashev 👋</div>
         </span>
 
         <div>
