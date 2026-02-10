@@ -63,14 +63,16 @@ export default function Home() {
                     </div>
 
                     {/* IMAGE SECTION */}
-                    <div className="order-1 xl:order-2
+                    <div
+                        className="order-1 xl:order-2
     mt-6 xl:mt-0
-    md: -mt-28
+    md: -mt-32
     flex justify-center items-center
     w-[200px] xs:w-[250px] sm:w-[350px]
     h-[200px] xs:h-[250px] sm:h-[350px]
     rounded-full border-2 border-blue-600 p-3
-    shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+    shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                    >
 
                         <img
                             src={img2}
@@ -78,7 +80,6 @@ export default function Home() {
                             className="w-full h-full object-cover rounded-full"
                         />
                     </div>
-
                 </div>
             </section>
 
