@@ -1,0 +1,14 @@
+
+
+body {
+    background: #060010;
+    color: white;
+}
+
+section {
+    scroll-margin-top: 120px;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
