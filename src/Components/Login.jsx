@@ -12,17 +12,34 @@ const cardData = [{}];
    CONTACT FORM  (Register.jsx dagi tekshiruvlar + Telegram yuborish)
    =================================================================== */
  
-// .env faylida:  VITE_BOT_TOKEN=...   VITE_CHAT_ID=...
+// ---------------------------------------------------------------
+// YUBORISH SOZLAMASI (faqat shu faylning o'zi yetadi, qo'shimcha fayl kerak emas)
+//
+// .env fayliga (loyiha ildizida) yozing:
+//     VITE_BOT_TOKEN=123456:ABC...        <- BotFather bergan token
+//     VITE_CHAT_ID=123456789              <- xabar boradigan chat id
+// Saytni qayerga joylashingizdan qat'i nazar (Vercel, Netlify, GitHub Pages
+// yoki lokal tarmoq) xabar istalgan qurilmadan to'g'ridan-to'g'ri botga boradi.
+//
+// DIQQAT: VITE_ bilan boshlangan o'zgaruvchilar brauzer kodiga kiradi, ya'ni
+// token sayt ochiq ko'rinadigan joyda bo'ladi. Shuning uchun faqat shu forma
+// uchun alohida bot oching. Token tashqariga chiqib ketsa, BotFather'da
+// /revoke qilib yangisini oling.
+//
+// Token ochiq turishini xohlamasangiz: VITE_API_URL=https://saytingiz.vercel.app
+// yozing, shunda xabar serverdagi /api/contact orqali yuboriladi (token yo'q).
+// ---------------------------------------------------------------
 const BOT_TOKEN = import.meta.env.VITE_BOT_TOKEN;
 const CHAT_ID = import.meta.env.VITE_CHAT_ID;
+const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
  
 const MIN_NAME = 3; // Register'da 4 edi, xohlasangiz 4 qiling
 const BTN_W = 170; // Send tugmasi o'lchami
 const BTN_H = 54;
 const clampN = (v, a, b) => Math.min(b, Math.max(a, v));
 const FIELD_ORDER = ['name', 'email', 'phone', 'subject', 'message'];
- 
-const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
  
 // +998 90 123 45 67 ko'rinishiga keltirish
 function formatPhone(value) {
@@ -339,38 +356,54 @@ const ContactForm = () => {
     };
  
     const sendToTelegram = async () => {
-        if (!BOT_TOKEN || !CHAT_ID) {
-            console.error("VITE_BOT_TOKEN yoki VITE_CHAT_ID .env da yo'q");
-            return false;
-        }
- 
-        const text =
-            `📩 <b>Yangi xabar</b>\n\n` +
-            `👤 Ism: ${esc(values.name.trim())}\n` +
-            `✉️ Email: ${esc(values.email.trim())}\n` +
-            `📱 Telefon: ${esc(values.phone)}\n` +
-            `📌 Mavzu: ${esc(values.subject.trim())}\n\n` +
-            `💬 Xabar:\n${esc(values.message.trim())}\n\n` +
-            `🕒 Vaqt: ${new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' })}`;
- 
+        const data = {
+            name: values.name.trim(),
+            email: values.email.trim(),
+            phone: values.phone,
+            subject: values.subject.trim(),
+            message: values.message.trim()
+        };
+
+        // 1) Server orqali (token brauzerda yo'q): VITE_API_URL berilgan bo'lsa
+        // 2) To'g'ridan-to'g'ri Telegram'ga: VITE_BOT_TOKEN va VITE_CHAT_ID berilgan bo'lsa
+        // 3) Aks holda shu saytdagi /api/contact (Vercel serverless) ga
+        const useDirect = !API_BASE && BOT_TOKEN && CHAT_ID;
+
         try {
-            const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'HTML' })
-            });
-            const data = await res.json().catch(() => ({}));
-            if (!res.ok || !data.ok) {
-                console.error('Telegram:', data.description);
+            let res;
+            if (useDirect) {
+                const text =
+                    `📩 <b>Yangi xabar</b>\n\n` +
+                    `👤 Ism: ${esc(data.name)}\n` +
+                    `✉️ Email: ${esc(data.email)}\n` +
+                    `📱 Telefon: ${esc(data.phone)}\n` +
+                    `📌 Mavzu: ${esc(data.subject)}\n\n` +
+                    `💬 Xabar:\n${esc(data.message)}\n\n` +
+                    `🕒 Vaqt: ${new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' })}`;
+                res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'HTML' })
+                });
+            } else {
+                res = await fetch(`${API_BASE}/api/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            }
+            const json = await res.json().catch(() => ({}));
+            if (!res.ok || !json.ok) {
+                console.error('Yuborish xatosi:', res.status, json.description || '');
                 return false;
             }
             return true;
         } catch (err) {
-            console.error('Telegram xato:', err);
+            console.error('Yuborish xatosi:', err);
             return false;
         }
     };
- 
+
     const handleSubmit = async e => {
         e.preventDefault();
         if (status === 'sending') return;
@@ -518,7 +551,7 @@ const ContactForm = () => {
         }
       `}</style>
  
-            <div className="relative w-full">
+            <div className="relative w-full notranslate" translate="no">
                 <form
                     onSubmit={handleSubmit}
                     noValidate
@@ -619,10 +652,10 @@ const ContactForm = () => {
                                 {sending ? (
                                     <>
                                         <span className="cf-spinner" />
-                                        Yuborilmoqda...
+                                        <span>Yuborilmoqda...</span>
                                     </>
                                 ) : (
-                                    'Send →'
+                                    <span>Send →</span>
                                 )}
                             </button>
                         </div>
@@ -636,8 +669,8 @@ const ContactForm = () => {
                                 <path d="M5 12.5l4.5 4.5L19 7.5" stroke="#060010" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </div>
-                        <p className="text-[20px] font-semibold text-white">Xabar yuborildi!</p>
-                        <p className="text-[14px] text-purple-200">Tez orada siz bilan bog'lanaman 🚀</p>
+                        <p className="text-[20px] font-semibold text-white text-center">Ma'lumotlar yuborildi!</p>
+                        <p className="text-[14px] text-purple-200 text-center">Tez orada aloqaga chiqishadi 🚀</p>
                     </div>
                 )}
             </div>
