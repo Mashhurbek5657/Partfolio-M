@@ -1,0 +1,322 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== FRONTEND ICON ORBIT ===== */
+
+.orbit-scene {
+  --orbit-size: 350px;
+
+  position: relative;
+  width: var(--orbit-size);
+  height: var(--orbit-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Ko'k aylana */
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(22, 139, 255, 0.35);
+  border-radius: 50%;
+  animation: orbit-rotate 18s linear infinite;
+}
+
+/* Ikonkalar */
+.orbit-icon {
+  --orbit-gap: 13px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(22, 139, 255, 0.65);
+  border-radius: 50%;
+  background: #080d18;
+
+  font-size: 27px;
+  cursor: pointer;
+  z-index: 3;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--angle))
+    translateY(
+      calc(
+        (var(--orbit-size) / -2) -
+        var(--orbit-gap) -
+        24px
+      )
+    )
+    rotate(calc(-1 * var(--angle) - 12deg));
+
+  box-shadow: 0 0 5px rgba(22, 139, 255, 0.15);
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+/* Hover paytida neon ko'k */
+.orbit-icon:hover {
+  border-color: #38a7ff;
+  background: #0b1a30;
+
+  box-shadow:
+    0 0 8px rgba(22, 139, 255, 0.9),
+    0 0 18px rgba(22, 139, 255, 0.7),
+    0 0 30px rgba(22, 139, 255, 0.4);
+}
+
+/* Hoverda orbitani to'xtatish */
+.orbit-ring:has(.orbit-icon:hover) {
+  animation-play-state: paused;
+}
+
+/* Texnologiyalar */
+.html {
+  --angle: 0deg;
+  color: #e44d26;
+}
+
+.css {
+  --angle: 51.4286deg;
+  color: #1572b6;
+}
+
+.javascript {
+  --angle: 102.8571deg;
+  color: #f7df1e;
+}
+
+.react {
+  --angle: 154.2857deg;
+  color: #61dafb;
+}
+
+.bootstrap {
+  --angle: 205.7143deg;
+  color: #a77bff;
+}
+
+.github {
+  --angle: 257.1429deg;
+  color: #ffffff;
+}
+
+.vite {
+  --angle: 308.5714deg;
+  color: #bd8cff;
+}
+
+/* Markazdagi rasm */
+.orbit-profile {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  padding: 9px;
+}
+
+.orbit-profile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius:200%;
+}
+
+/* Aylanish */
+@keyframes orbit-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 1. Kichik telefonlar */
+@media (max-width: 479px) {
+  .orbit-scene {
+    --orbit-size: min(250px, 80vw);
+  }
+
+  .orbit-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 21px;
+  }
+
+  .orbit-profile {
+    padding: 6px;
+  }
+}
+
+/* 2. Telefonlar */
+@media (min-width: 480px) and (max-width: 767px) {
+  .orbit-scene {
+    --orbit-size: 290px;
+  }
+
+  .orbit-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 23px;
+  }
+
+  .orbit-profile {
+    padding: 7px;
+  }
+}
+
+/* 3. Planshet va kichik noutbuk */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .orbit-scene {
+    --orbit-size: 320px;
+  }
+
+  .orbit-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 25px;
+  }
+}
+
+/* 4. Katta ekran */
+@media (min-width: 1200px) {
+  .orbit-scene {
+    --orbit-size: 350px;
+  }
+
+  .orbit-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 27px;
+  }
+}
+
+/* Harakatni kamaytirish */
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring {
+    animation: none;
+  }
+}
+
+/* ===== THEME VARIABLES ===== */
+
+@layer base {
+  .theme {
+    --font-heading: var(--font-sans);
+    --font-sans: "Geist Variable", sans-serif;
+  }
+
+  :root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+
+    --destructive: oklch(0.577 0.245 27.325);
+
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+
+    --radius: 0.625rem;
+
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+  }
+
+  .dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+
+    --destructive: oklch(0.704 0.191 22.216);
+
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+  }
+}
